@@ -35,7 +35,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(693, 413);
+            this.ClientSize = new System.Drawing.Size(643, 376);
             this.Name = "RadForm1";
             // 
             // 
