@@ -25,6 +25,9 @@ namespace Novi_projekat_test
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<DOKUMENTI> DOKUMENTI { get; set; }
+        public virtual DbSet<KOMITENTI> KOMITENTI { get; set; }
         public virtual DbSet<ARTIKLI> ARTIKLI { get; set; }
+        public virtual DbSet<STAVKE> STAVKE { get; set; }
     }
 }

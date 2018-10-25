@@ -5,7 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="d8fa5f700b744e609e3c03870437db20" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.ARTIKLI" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DOKUMENTI" Width="1.5" PointX="4.625" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.KOMITENTI" Width="1.5" PointX="2.125" PointY="0.75" />
+        <AssociationConnector Association="Model.FK_DOKUMENTI_1" />
+        <EntityTypeShape EntityType="Model.ARTIKLI" Width="1.5" PointX="6.875" PointY="1.125" />
+        <EntityTypeShape EntityType="Model.STAVKE" Width="1.5" PointX="9.125" PointY="0.75" />
+        <AssociationConnector Association="Model.FK_STAVKE_2" />
+        <AssociationConnector Association="Model.FK_STAVKE_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

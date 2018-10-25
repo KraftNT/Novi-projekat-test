@@ -4,43 +4,267 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="FirebirdSql.Data.FirebirdClient" ProviderManifestToken="2.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="FirebirdSql.Data.FirebirdClient" ProviderManifestToken="2.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ARTIKLI">
           <Key>
             <PropertyRef Name="ID_ARTIKLA" />
           </Key>
           <Property Name="ID_ARTIKLA" Type="int" Nullable="false" />
           <Property Name="NAZIV_ARTIKLA" Type="varchar" MaxLength="50" Unicode="true" />
+          <Property Name="CIJENA" Type="numeric" Precision="15" Scale="2" />
+          <Property Name="JED_MJERE" Type="varchar" MaxLength="5" Unicode="true" />
         </EntityType>
+        <EntityType Name="DOKUMENTI">
+          <Key>
+            <PropertyRef Name="ID_DOKUMENTA" />
+          </Key>
+          <Property Name="ID_DOKUMENTA" Type="int" Nullable="false" />
+          <Property Name="DATUM" Type="date" />
+          <Property Name="ID_KOMITENTA" Type="int" />
+          <Property Name="NAZIV_KOMITENTA" Type="varchar" MaxLength="50" Unicode="true" />
+          <Property Name="IZNOS" Type="numeric" Precision="15" Scale="2" />
+          <Property Name="DETALJI" Type="varchar" MaxLength="100" Unicode="true" />
+        </EntityType>
+        <EntityType Name="KOMITENTI">
+          <Key>
+            <PropertyRef Name="ID_KOMITENTA" />
+          </Key>
+          <Property Name="ID_KOMITENTA" Type="int" Nullable="false" />
+          <Property Name="NAZIV_KOMITENTA" Type="varchar" MaxLength="50" Unicode="true" />
+          <Property Name="PIB" Type="varchar" MaxLength="15" Unicode="true" />
+          <Property Name="PDV" Type="varchar" MaxLength="15" Unicode="true" />
+          <Property Name="ADRESA" Type="varchar" MaxLength="30" Unicode="true" />
+          <Property Name="GRAD" Type="varchar" MaxLength="20" Unicode="true" />
+          <Property Name="KONTAKT" Type="varchar" MaxLength="30" Unicode="true" />
+        </EntityType>
+        <EntityType Name="STAVKE">
+          <Key>
+            <PropertyRef Name="ID_STAVKE" />
+          </Key>
+          <Property Name="ID_DOKUMENTA" Type="int" />
+          <Property Name="ID_STAVKE" Type="int" Nullable="false" />
+          <Property Name="RBR" Type="int" />
+          <Property Name="ID_ARTIKLA" Type="int" />
+          <Property Name="NAZIV_ARTIKLA" Type="varchar" MaxLength="50" Unicode="true" />
+          <Property Name="KOLICINA" Type="numeric" Precision="15" Scale="2" />
+          <Property Name="CIJENA" Type="numeric" Precision="15" Scale="2" />
+          <Property Name="IZNOS" Type="numeric" Precision="15" Scale="2" />
+        </EntityType>
+        <Association Name="FK_DOKUMENTI_1">
+          <End Role="KOMITENTI" Type="Self.KOMITENTI" Multiplicity="0..1" />
+          <End Role="DOKUMENTI" Type="Self.DOKUMENTI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KOMITENTI">
+              <PropertyRef Name="ID_KOMITENTA" />
+            </Principal>
+            <Dependent Role="DOKUMENTI">
+              <PropertyRef Name="ID_KOMITENTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STAVKE_1">
+          <End Role="DOKUMENTI" Type="Self.DOKUMENTI" Multiplicity="0..1" />
+          <End Role="STAVKE" Type="Self.STAVKE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOKUMENTI">
+              <PropertyRef Name="ID_DOKUMENTA" />
+            </Principal>
+            <Dependent Role="STAVKE">
+              <PropertyRef Name="ID_DOKUMENTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STAVKE_2">
+          <End Role="ARTIKLI" Type="Self.ARTIKLI" Multiplicity="0..1" />
+          <End Role="STAVKE" Type="Self.STAVKE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTIKLI">
+              <PropertyRef Name="ID_ARTIKLA" />
+            </Principal>
+            <Dependent Role="STAVKE">
+              <PropertyRef Name="ID_ARTIKLA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="ARTIKLI" EntityType="Self.ARTIKLI" Schema="Firebird" store:Type="Tables" />
+          <EntitySet Name="DOKUMENTI" EntityType="Self.DOKUMENTI" Schema="Firebird" store:Type="Tables" />
+          <EntitySet Name="KOMITENTI" EntityType="Self.KOMITENTI" Schema="Firebird" store:Type="Tables" />
+          <EntitySet Name="STAVKE" EntityType="Self.STAVKE" Schema="Firebird" store:Type="Tables" />
+          <AssociationSet Name="FK_DOKUMENTI_1" Association="Self.FK_DOKUMENTI_1">
+            <End Role="KOMITENTI" EntitySet="KOMITENTI" />
+            <End Role="DOKUMENTI" EntitySet="DOKUMENTI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STAVKE_1" Association="Self.FK_STAVKE_1">
+            <End Role="DOKUMENTI" EntitySet="DOKUMENTI" />
+            <End Role="STAVKE" EntitySet="STAVKE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STAVKE_2" Association="Self.FK_STAVKE_2">
+            <End Role="ARTIKLI" EntitySet="ARTIKLI" />
+            <End Role="STAVKE" EntitySet="STAVKE" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BazaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DOKUMENTI" EntityType="Model.DOKUMENTI" />
+          <EntitySet Name="KOMITENTI" EntityType="Model.KOMITENTI" />
+          <AssociationSet Name="FK_DOKUMENTI_1" Association="Model.FK_DOKUMENTI_1">
+            <End Role="KOMITENTI" EntitySet="KOMITENTI" />
+            <End Role="DOKUMENTI" EntitySet="DOKUMENTI" />
+          </AssociationSet>
+          <EntitySet Name="ARTIKLI" EntityType="Model.ARTIKLI" />
+          <EntitySet Name="STAVKE" EntityType="Model.STAVKE" />
+          <AssociationSet Name="FK_STAVKE_2" Association="Model.FK_STAVKE_2">
+            <End Role="ARTIKLI" EntitySet="ARTIKLI" />
+            <End Role="STAVKE" EntitySet="STAVKE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STAVKE_1" Association="Model.FK_STAVKE_1">
+            <End Role="DOKUMENTI" EntitySet="DOKUMENTI" />
+            <End Role="STAVKE" EntitySet="STAVKE" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="DOKUMENTI">
+          <Key>
+            <PropertyRef Name="ID_DOKUMENTA" />
+          </Key>
+          <Property Name="ID_DOKUMENTA" Type="Int32" Nullable="false" />
+          <Property Name="DATUM" Type="DateTime" />
+          <Property Name="ID_KOMITENTA" Type="Int32" />
+          <Property Name="NAZIV_KOMITENTA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IZNOS" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="DETALJI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="KOMITENTI" Relationship="Model.FK_DOKUMENTI_1" FromRole="DOKUMENTI" ToRole="KOMITENTI" />
+          <NavigationProperty Name="STAVKE" Relationship="Model.FK_STAVKE_1" FromRole="DOKUMENTI" ToRole="STAVKE" />
+        </EntityType>
+        <EntityType Name="KOMITENTI">
+          <Key>
+            <PropertyRef Name="ID_KOMITENTA" />
+          </Key>
+          <Property Name="ID_KOMITENTA" Type="Int32" Nullable="false" />
+          <Property Name="NAZIV_KOMITENTA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PIB" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="PDV" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ADRESA" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="GRAD" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="KONTAKT" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DOKUMENTI" Relationship="Model.FK_DOKUMENTI_1" FromRole="KOMITENTI" ToRole="DOKUMENTI" />
+        </EntityType>
+        <Association Name="FK_DOKUMENTI_1">
+          <End Type="Model.KOMITENTI" Role="KOMITENTI" Multiplicity="0..1" />
+          <End Type="Model.DOKUMENTI" Role="DOKUMENTI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KOMITENTI">
+              <PropertyRef Name="ID_KOMITENTA" />
+            </Principal>
+            <Dependent Role="DOKUMENTI">
+              <PropertyRef Name="ID_KOMITENTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="ARTIKLI">
           <Key>
             <PropertyRef Name="ID_ARTIKLA" />
           </Key>
           <Property Name="ID_ARTIKLA" Type="Int32" Nullable="false" />
           <Property Name="NAZIV_ARTIKLA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CIJENA" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="JED_MJERE" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="STAVKE" Relationship="Model.FK_STAVKE_2" FromRole="ARTIKLI" ToRole="STAVKE" />
         </EntityType>
-        <EntityContainer Name="BazaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ARTIKLI" EntityType="Self.ARTIKLI" />
-        </EntityContainer>
+        <EntityType Name="STAVKE">
+          <Key>
+            <PropertyRef Name="ID_STAVKE" />
+          </Key>
+          <Property Name="ID_DOKUMENTA" Type="Int32" />
+          <Property Name="ID_STAVKE" Type="Int32" Nullable="false" />
+          <Property Name="RBR" Type="Int32" />
+          <Property Name="ID_ARTIKLA" Type="Int32" />
+          <Property Name="NAZIV_ARTIKLA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KOLICINA" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="CIJENA" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="IZNOS" Type="Decimal" Precision="15" Scale="2" />
+          <NavigationProperty Name="ARTIKLI" Relationship="Model.FK_STAVKE_2" FromRole="STAVKE" ToRole="ARTIKLI" />
+          <NavigationProperty Name="DOKUMENTI" Relationship="Model.FK_STAVKE_1" FromRole="STAVKE" ToRole="DOKUMENTI" />
+        </EntityType>
+        <Association Name="FK_STAVKE_2">
+          <End Type="Model.ARTIKLI" Role="ARTIKLI" Multiplicity="0..1" />
+          <End Type="Model.STAVKE" Role="STAVKE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTIKLI">
+              <PropertyRef Name="ID_ARTIKLA" />
+            </Principal>
+            <Dependent Role="STAVKE">
+              <PropertyRef Name="ID_ARTIKLA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STAVKE_1">
+          <End Type="Model.DOKUMENTI" Role="DOKUMENTI" Multiplicity="0..1" />
+          <End Type="Model.STAVKE" Role="STAVKE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOKUMENTI">
+              <PropertyRef Name="ID_DOKUMENTA" />
+            </Principal>
+            <Dependent Role="STAVKE">
+              <PropertyRef Name="ID_DOKUMENTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="BazaEntities">
+          <EntitySetMapping Name="DOKUMENTI">
+            <EntityTypeMapping TypeName="Model.DOKUMENTI">
+              <MappingFragment StoreEntitySet="DOKUMENTI">
+                <ScalarProperty Name="DETALJI" ColumnName="DETALJI" />
+                <ScalarProperty Name="IZNOS" ColumnName="IZNOS" />
+                <ScalarProperty Name="NAZIV_KOMITENTA" ColumnName="NAZIV_KOMITENTA" />
+                <ScalarProperty Name="ID_KOMITENTA" ColumnName="ID_KOMITENTA" />
+                <ScalarProperty Name="DATUM" ColumnName="DATUM" />
+                <ScalarProperty Name="ID_DOKUMENTA" ColumnName="ID_DOKUMENTA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KOMITENTI">
+            <EntityTypeMapping TypeName="Model.KOMITENTI">
+              <MappingFragment StoreEntitySet="KOMITENTI">
+                <ScalarProperty Name="KONTAKT" ColumnName="KONTAKT" />
+                <ScalarProperty Name="GRAD" ColumnName="GRAD" />
+                <ScalarProperty Name="ADRESA" ColumnName="ADRESA" />
+                <ScalarProperty Name="PDV" ColumnName="PDV" />
+                <ScalarProperty Name="PIB" ColumnName="PIB" />
+                <ScalarProperty Name="NAZIV_KOMITENTA" ColumnName="NAZIV_KOMITENTA" />
+                <ScalarProperty Name="ID_KOMITENTA" ColumnName="ID_KOMITENTA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ARTIKLI">
             <EntityTypeMapping TypeName="Model.ARTIKLI">
               <MappingFragment StoreEntitySet="ARTIKLI">
-                <ScalarProperty Name="ID_ARTIKLA" ColumnName="ID_ARTIKLA" />
+                <ScalarProperty Name="JED_MJERE" ColumnName="JED_MJERE" />
+                <ScalarProperty Name="CIJENA" ColumnName="CIJENA" />
                 <ScalarProperty Name="NAZIV_ARTIKLA" ColumnName="NAZIV_ARTIKLA" />
+                <ScalarProperty Name="ID_ARTIKLA" ColumnName="ID_ARTIKLA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STAVKE">
+            <EntityTypeMapping TypeName="Model.STAVKE">
+              <MappingFragment StoreEntitySet="STAVKE">
+                <ScalarProperty Name="IZNOS" ColumnName="IZNOS" />
+                <ScalarProperty Name="CIJENA" ColumnName="CIJENA" />
+                <ScalarProperty Name="KOLICINA" ColumnName="KOLICINA" />
+                <ScalarProperty Name="NAZIV_ARTIKLA" ColumnName="NAZIV_ARTIKLA" />
+                <ScalarProperty Name="ID_ARTIKLA" ColumnName="ID_ARTIKLA" />
+                <ScalarProperty Name="RBR" ColumnName="RBR" />
+                <ScalarProperty Name="ID_STAVKE" ColumnName="ID_STAVKE" />
+                <ScalarProperty Name="ID_DOKUMENTA" ColumnName="ID_DOKUMENTA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

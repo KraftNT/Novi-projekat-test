@@ -12,20 +12,23 @@ namespace Novi_projekat_test
     using System;
     using System.Collections.Generic;
     
-    public partial class ARTIKLI
+    public partial class KOMITENTI
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ARTIKLI()
+        public KOMITENTI()
         {
-            this.STAVKE = new HashSet<STAVKE>();
+            this.DOKUMENTI = new HashSet<DOKUMENTI>();
         }
     
-        public int ID_ARTIKLA { get; set; }
-        public string NAZIV_ARTIKLA { get; set; }
-        public Nullable<decimal> CIJENA { get; set; }
-        public string JED_MJERE { get; set; }
+        public int ID_KOMITENTA { get; set; }
+        public string NAZIV_KOMITENTA { get; set; }
+        public string PIB { get; set; }
+        public string PDV { get; set; }
+        public string ADRESA { get; set; }
+        public string GRAD { get; set; }
+        public string KONTAKT { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<STAVKE> STAVKE { get; set; }
+        public virtual ICollection<DOKUMENTI> DOKUMENTI { get; set; }
     }
 }
