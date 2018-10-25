@@ -1,6 +1,6 @@
 ﻿namespace Novi_projekat_test
 {
-    partial class RadForm1
+    partial class GlavnaForma
     {
         /// <summary>
         /// Required designer variable.
@@ -31,12 +31,12 @@
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
-            // RadForm1
+            // GlavnaForma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(643, 376);
-            this.Name = "RadForm1";
+            this.Name = "GlavnaForma";
             // 
             // 
             // 

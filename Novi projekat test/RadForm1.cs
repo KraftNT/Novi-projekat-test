@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace Novi_projekat_test
 {
-    public partial class RadForm1 : Telerik.WinControls.UI.RadForm
+    public partial class GlavnaForma : Telerik.WinControls.UI.RadForm
     {
-        public RadForm1()
+        public GlavnaForma()
         {
             InitializeComponent();
         }
