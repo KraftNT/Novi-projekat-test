@@ -32,14 +32,14 @@
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.radTextBox2 = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
-            this.radTextBox3 = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
+            this.radTextBox3 = new Telerik.WinControls.UI.RadTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.radTextBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radTextBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radTextBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radTextBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,6 +85,15 @@
             this.radLabel2.Text = "Datum";
             this.radLabel2.ThemeName = "ControlDefault";
             // 
+            // radLabel4
+            // 
+            this.radLabel4.Location = new System.Drawing.Point(161, 38);
+            this.radLabel4.Name = "radLabel4";
+            this.radLabel4.Size = new System.Drawing.Size(32, 18);
+            this.radLabel4.TabIndex = 7;
+            this.radLabel4.Text = "Iznos";
+            this.radLabel4.ThemeName = "ControlDefault";
+            // 
             // radTextBox3
             // 
             this.radTextBox3.Enabled = false;
@@ -99,15 +108,6 @@
             this.radTextBox3.RootElement.Text = null;
             this.radTextBox3.Size = new System.Drawing.Size(79, 20);
             this.radTextBox3.TabIndex = 5;
-            // 
-            // radLabel4
-            // 
-            this.radLabel4.Location = new System.Drawing.Point(161, 38);
-            this.radLabel4.Name = "radLabel4";
-            this.radLabel4.Size = new System.Drawing.Size(32, 18);
-            this.radLabel4.TabIndex = 7;
-            this.radLabel4.Text = "Iznos";
-            this.radLabel4.ThemeName = "ControlDefault";
             // 
             // GlavnaForma
             // 
@@ -130,8 +130,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radTextBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radTextBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radTextBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -144,7 +144,8 @@
         private Telerik.WinControls.UI.RadLabel radLabel1;
         private Telerik.WinControls.UI.RadTextBox radTextBox2;
         private Telerik.WinControls.UI.RadLabel radLabel2;
-        private Telerik.WinControls.UI.RadTextBox radTextBox3;
+        private Telerik.WinControls.UI.RadGridView radGridView1;
         private Telerik.WinControls.UI.RadLabel radLabel4;
+        private Telerik.WinControls.UI.RadTextBox radTextBox3;
     }
 }
